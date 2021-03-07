@@ -1,5 +1,10 @@
 '''
 Trading card game thing
+or
+Uno
+
+made a quick mockup of some UnoCard classes, need to look into other libraries
+if we're doing the TCG and some template card classes
 '''
 
 
