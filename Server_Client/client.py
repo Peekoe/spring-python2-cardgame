@@ -1,4 +1,5 @@
 import socket
+
 FORMAT = 'utf-8'
 
 # create TCP/IP socket
@@ -17,6 +18,12 @@ ip_address = socket.gethostbyname(local_hostname)
 server_address = (ip_address, 23456)
 sock.connect(server_address)
 print(sock.recv(128).decode(FORMAT))
+
+# get message
+message = input("What would you like to say?").encode(FORMAT)
+
+# send out to server
+sock.sendall(message)
 
 # close connection
 sock.close()

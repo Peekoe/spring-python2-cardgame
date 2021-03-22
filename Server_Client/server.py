@@ -25,36 +25,34 @@ sock.bind(server_address)
 # listen for incoming connections (server mode) with one connection at a time
 sock.listen(2)
 
-
 while True:
-    # wait for a connection
     print ('waiting for connection 1')
     connection1, client_address1 = sock.accept()
+    print ('Connection 1 confirmed!')
 
-    print ('Connection 1 confirmed!\nwaiting for connection 2')
-
+    print ('waiting for connection 2')
     connection2, client_address2 = sock.accept()
-    print('Connection 2 confirmed!')
+    print ('Connection 2 confirmed!')
 
     try:
         # show who connected to us
-        print ('connection from', client_address1, client_address2)
+        print ('connection from', client_address1)
+        print ('connection from', client_address2)
+        connection1.send("Connection successful".encode(FORMAT))
+        connection1.send("enter input...".encode(FORMAT))
+        connection2.send("Connection successful".encode(FORMAT))
+        connection2.send("enter input...".encode(FORMAT))
 
-        # receive the data in small chunks and print it
-        while True:
-            # initial player 1 messages
-            connection1.send("Connection successful".encode(FORMAT))
-            connection1.send("enter input...".encode(FORMAT))
-            # player 2 waits...
-            connection2.send("Wait for Player 1's input...".encode(FORMAT))
-            # player 1 input
-            player1_choice = connection1.recv(64).decode(FORMAT)
-            print(player1_choice)
-            # player 2 second message and input
-            connection2.send("Player 1 done, enter input...".encode(FORMAT))
-            player2_choice = connection2.recv(64).decode(FORMAT)
+        # player 1 input
+        client1_msg = connection1.recv(64).decode(FORMAT)
+        connection2.send(client1_msg)
+        # player 2 input
+        client2_msg = connection2.recv(64).decode(FORMAT)
+        connection1.send(client2_msg)
+
+        print('client1 said', client1_msg)
+        print('client2 said', client2_msg)
     finally:
-        break
-    # Clean up the connection
-    connection1.close()
-    connection2.close()
+        # Clean up the connection
+        connection1.close()
+        connection2.close()
