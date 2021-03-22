@@ -1,9 +1,40 @@
+# Group Members: Charlie, Mauricio, Derrek, Eriq
+
 import pygame
 from pygame.locals import *
 
-pygame.init()
+print("\n Welcome to the UI of YuGiOh Verison 0.3!")
+print("The main screen of play.")
+print("Players will be using this screen during battle.")
+print("Added feature apart from the GUI is the ability to summon")
+print("cards in hand from moving cursor towards the bottom")
+print("\n Still working with sprites in order to have them move around")
+print("While also being able to remove the cards from screen once cursor")
+print("is moved from the area.")
 
+hand = []
+handCoordinates = [(150, 850),(300, 850),(450, 850),
+                      (600, 850),(750, 850),(900, 850)]
 show_hand = False
+
+class YuGiOhCardSprite(pygame.sprite.Sprite):
+    def __init__(self, picture_path):
+        super().__init__()
+        self.inHand = True
+        
+        self.image = pygame.image.load(picture_path).convert()
+        self.image = pygame.transform.scale(self.image, (100, 150))
+        self.rect = self.image.get_rect()
+        hand.append(self)
+
+    def update(self):
+        self.rect.center = handCoordinates[hand.index(self)]
+        if show_hand is True:
+            self.kill()
+            
+    
+
+pygame.init()
 DISPLAYSURF = pygame.display.set_mode((1200,1000))
 
 # Yu Gi Oh Card Image Background
@@ -11,23 +42,12 @@ IMAGE = pygame.image.load('yugioh_BACK.jpg').convert()
 IMAGE = pygame.transform.scale(IMAGE, (150, 200))
 
 "Testing of cards in hand"
-BLUE_EYES = pygame.image.load('blue_eyes_card.jpg').convert()
-BLUE_EYES = pygame.transform.scale(BLUE_EYES, (100, 150))
-
-DARK_MAG = pygame.image.load('Dark_Magician.jpg').convert()
-DARK_MAG = pygame.transform.scale(DARK_MAG, (100, 150))
-
-EXODIA = pygame.image.load('exodia_card.png').convert()
-EXODIA = pygame.transform.scale(EXODIA, (100, 150))
-
-fake_trap_card = pygame.image.load('fake_trap_card.png').convert()
-fake_trap_card = pygame.transform.scale(fake_trap_card, (100, 150))
-
-jinzo = pygame.image.load('jinzo_card.png').convert()
-jinzo = pygame.transform.scale(jinzo, (100, 150))
-
-pot_of_greed = pygame.image.load('pot_of_creed.jpg').convert()
-pot_of_greed = pygame.transform.scale(pot_of_greed, (100, 150))
+BLUE_EYES = YuGiOhCardSprite('blue_eyes_card.jpg')
+DARK_MAG = YuGiOhCardSprite('Dark_Magician.jpg')
+EXODIA = YuGiOhCardSprite('exodia_card.png')
+fake_trap_card = YuGiOhCardSprite('fake_trap_card.png')
+jinzo = YuGiOhCardSprite('jinzo_card.png')
+pot_of_greed = YuGiOhCardSprite('pot_of_creed.jpg')
 
 
 WHITE = (255, 255, 255)
@@ -69,36 +89,32 @@ DISPLAYSURF.blit(IMAGE, (630,770, 150, 200))
 DISPLAYSURF.blit(IMAGE, (830,770, 150, 200))
 DISPLAYSURF.blit(IMAGE, (1030,770, 150, 200))
 
-"Hand Card Coordinates"
-def showCards(card1, card2, card3, card4, card5, card6):
-    DISPLAYSURF.blit(BLUE_EYES, card1)
-    DISPLAYSURF.blit(DARK_MAG, card2)
-    DISPLAYSURF.blit(EXODIA, card3)
-    DISPLAYSURF.blit(fake_trap_card, card4)
-    DISPLAYSURF.blit(jinzo, card5)
-    DISPLAYSURF.blit(pot_of_greed, card6)
-
-
+hand_group = pygame.sprite.Group()
 
 while True:
     pygame.display.update()
-    DISPLAYSURF.copy()
     cursor_x , cursor_y = pygame.mouse.get_pos()
-    card1 = (0, 1000)
-    card2 = (0, 1000)
-    card3 = (0, 1000)
-    card4 = (0, 1000)
-    card5 = (0, 1000)
-    card6 = (0, 1000)
     
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+
     if(cursor_x >= 300 and cursor_x <= 900):
         if(cursor_y >= 970 and cursor_y <= 999):
-            showCards((150, 850),(300, 850),(450, 850),
-                      (600, 850),(750, 850),(900, 850))
+            print(show_hand)
+            if show_hand is False:
+                hand_group.add(BLUE_EYES, DARK_MAG, EXODIA, fake_trap_card,
+                               jinzo, pot_of_greed)
+                hand_group.update()
+                hand_group.draw(DISPLAYSURF)
+            show_hand = True
+    else:
+        hand_group.update()
+        show_hand = False
+            
 
     
 
+
+        
