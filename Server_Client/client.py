@@ -24,7 +24,7 @@ message = input("What would you like to say?").encode(FORMAT)
 
 # send out to server
 sock.sendall(message)
-
+print(sock.recv(128).decode(FORMAT))
 # close connection
 sock.close()
 

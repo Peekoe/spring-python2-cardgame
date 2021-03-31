@@ -45,10 +45,11 @@ while True:
 
         # player 1 input
         client1_msg = connection1.recv(64).decode(FORMAT)
-        connection2.send(client1_msg)
         # player 2 input
         client2_msg = connection2.recv(64).decode(FORMAT)
-        connection1.send(client2_msg)
+        # send out msgs
+        connection2.send(client1_msg.encode(FORMAT))
+        connection1.send(client2_msg.encode(FORMAT))
 
         print('client1 said', client1_msg)
         print('client2 said', client2_msg)
