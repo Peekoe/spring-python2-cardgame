@@ -1,4 +1,5 @@
 import socket
+import pickle
 
 FORMAT = 'utf-8'
 
@@ -38,22 +39,24 @@ while True:
         # show who connected to us
         print ('connection from', client_address1)
         print ('connection from', client_address2)
-        connection1.send("Connection successful".encode(FORMAT))
-        connection1.send("enter input...".encode(FORMAT))
+        connection1.send("Connection successful, wait for 2".encode(FORMAT))
         connection2.send("Connection successful".encode(FORMAT))
-        connection2.send("enter input...".encode(FORMAT))
 
         # player 1 input
-        client1_msg = connection1.recv(64).decode(FORMAT)
+        connection1.send('ready'.encode(FORMAT))
+        client1_msg = connection1.recv(256)
         # player 2 input
-        client2_msg = connection2.recv(64).decode(FORMAT)
+        connection2.send('ready'.encode(FORMAT))
+        client2_msg = connection2.recv(256)
         # send out msgs
-        connection2.send(client1_msg.encode(FORMAT))
-        connection1.send(client2_msg.encode(FORMAT))
+        connection2.send(client1_msg)
+        connection1.send(client2_msg)
 
         print('client1 said', client1_msg)
         print('client2 said', client2_msg)
     finally:
         # Clean up the connection
+        connection1.send('done'.encode(FORMAT))
         connection1.close()
+        connection2.send('done'.encode(FORMAT))
         connection2.close()
