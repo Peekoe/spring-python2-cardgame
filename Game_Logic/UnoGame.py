@@ -86,14 +86,6 @@ def uno_game():
                         continue
                     break
 
-                # if color_choice == 1:
-                #     current_color = 'Red'
-                # elif color_choice == 2:
-                #     current_color = 'Blue'
-                # elif color_choice == 3:
-                #     current_color = 'Green'
-                # elif color_choice == 4:
-                #     current_color = 'Yellow'
                 current_color = COLORS[color_choice]
 
             #Check for reverse
@@ -117,6 +109,7 @@ def uno_game():
                 elif player_turn < 0:
                     player_draw = num_players - 1
 
+                uno_deck.is_empty()
                 players[player_draw].add_cards(uno_deck.draw_card(2))
 
             #Check for Draw four
@@ -128,9 +121,11 @@ def uno_game():
                 elif player_turn < 0:
                     player_draw = num_players - 1
 
+                uno_deck.is_empty()
                 players[player_draw].add_cards(uno_deck.draw_card(4))
         else:
             print("You have no available cards to play. Draw a card.")
+            uno_deck.is_empty()
             players[player_turn].add_cards(uno_deck.draw_card(1))
 
         #game ends and there is a winner if hand reaches 0
@@ -139,6 +134,8 @@ def uno_game():
             
        #move to next player's turn 
         player_turn += play_order
+
+
 
         #loop around to first player 
         if player_turn == num_players:

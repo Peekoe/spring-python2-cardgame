@@ -91,6 +91,11 @@ class Deck():
 
         return self.deck[-1]
 
+    def is_empty(self):
+        if len(self.deck) <= 4:
+            self.populate_deck()
+            self.shuffle()
+
 
 class Player():
 

@@ -11,7 +11,7 @@ DISPLAYSURF = pygame.display.set_mode((1920, 1080), 0, 32)
 pygame.display.set_caption('Animation')
 
 WHITE = (255, 255, 255)
-catImg = pygame.image.load('uno.png')
+catImg = pygame.image.load("C:\\Users\\Charlie\\Documents\\GitHub\\spring-python2-cardgame\\GUI\\uno.png")
 catx = 10
 caty = 10
 direction = 'right'
@@ -36,8 +36,7 @@ while True: # the main game loop
         if caty == 10:
             direction = 'right'
 
-    print(type(DISPLAYSURF))
-    CardRect1 = Rect(0, 0, 400, 580) 
+    CardRect1 = Rect(0, 0, 400, 580)
     # card size for the second 2
     CardRect2 = Rect(0, 580, 400, 580)
     # x,y first 2
