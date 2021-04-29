@@ -3,13 +3,20 @@
 import random
 from UnoClass import Card, Deck, Player
 
+COLORS = {
+    1: 'Red',
+    2: 'Blue',
+    3: 'Green',
+    4: 'Yellow'
+}
+
 def uno_game():
     
-    uno_deck = Deck();
+    uno_deck = Deck()
     uno_deck.populate_deck()
     uno_deck.shuffle()
 
-    discard_pile = Deck();
+    discard_pile = Deck()
 
     players = []
     colors = ['Red','Blue','Green','Yellow']
@@ -79,14 +86,15 @@ def uno_game():
                         continue
                     break
 
-                if color_choice == 1:
-                    current_color = 'Red'
-                elif color_choice == 2:
-                    current_color = 'Blue'
-                elif color_choice == 3:
-                    current_color = 'Green'
-                elif color_choice == 4:
-                    current_color = 'Yellow'
+                # if color_choice == 1:
+                #     current_color = 'Red'
+                # elif color_choice == 2:
+                #     current_color = 'Blue'
+                # elif color_choice == 3:
+                #     current_color = 'Green'
+                # elif color_choice == 4:
+                #     current_color = 'Yellow'
+                current_color = COLORS[color_choice]
 
             #Check for reverse
             if current_value == 'Reverse':
@@ -121,8 +129,6 @@ def uno_game():
                     player_draw = num_players - 1
 
                 players[player_draw].add_cards(uno_deck.draw_card(4))
-
-
         else:
             print("You have no available cards to play. Draw a card.")
             players[player_turn].add_cards(uno_deck.draw_card(1))
@@ -131,11 +137,6 @@ def uno_game():
         if len(players[player_turn].get_hand()) == 0:
             game_end = True
             
-
-        
-
-
-        
        #move to next player's turn 
         player_turn += play_order
 
@@ -147,15 +148,6 @@ def uno_game():
 
            
     print("Game over.")
-
-
-
-        
-
-        
-
-    
-
     
     
 if __name__ == '__main__':

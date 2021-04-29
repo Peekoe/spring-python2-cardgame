@@ -16,6 +16,7 @@ class Card():
     def get_value(self):
         return self.value
 
+
 class Deck():
 
     def __init__(self):
@@ -60,7 +61,8 @@ class Deck():
 
     def draw_card(self, num_cards) -> list:
         """
-        Draws a number of cards from the top of the deck. Returns a list of cards drawn.
+        Draws a number of cards from the top of the deck.
+        Returns a list of cards drawn.
         """
 
         cards_drawn = []
@@ -125,7 +127,8 @@ class Player():
 
     def valid_play(self, top_color:str, top_value:str) -> bool:
         """
-        Function determines whether the player can play a card or not. Returns True if there is a playable card in the player's hand.
+        Function determines whether the player can play a card or not.
+        Returns True if there is a playable card in the player's hand.
         """
 
         if top_color == 'Empty':
