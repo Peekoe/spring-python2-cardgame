@@ -1,6 +1,7 @@
 #UnoGame.py
 
 import random
+import time
 from UnoClass import Card, Deck, Player
 
 COLORS = {
@@ -125,6 +126,7 @@ def uno_game():
                 players[player_draw].add_cards(uno_deck.draw_card(4))
         else:
             print("You have no available cards to play. Draw a card.")
+            time.sleep(2)
             uno_deck.is_empty()
             players[player_turn].add_cards(uno_deck.draw_card(1))
 
