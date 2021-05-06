@@ -144,6 +144,9 @@ def uno_game():
             player_turn = 0
         elif player_turn < 0:
             player_turn = num_players - 1
+        
+        pg.display.update()
+        pg.fpsClock.tick(FPS)
 
            
     print("Game over.")
