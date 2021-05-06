@@ -1,7 +1,21 @@
 #UnoClass
 
 import random
+import pygame as pg
 
+def get_texture(color: str, value: int):
+    '''
+    takes in a color and value and returns a tuple of coordinates for the
+    uno.png
+    '''
+    pass
+
+def get_card_positions(num_cards: int):
+    '''
+    takes in how many cards a player has and returns a list of tuples of the 
+    coordinates for their hand to be displayed
+    '''
+    pass
 
 class Card():
     #Class for each Uno Card
@@ -102,6 +116,7 @@ class Player():
     def __init__(self, number:int, hand:list):
         self.number = number
         self.hand = hand
+        self.gui_hand = self.make_gui_cards()
 
     def add_cards(self, cards:list):
         """
@@ -109,7 +124,6 @@ class Player():
         """
 
         self.hand.extend(cards)
-
 
     def get_hand(self):
         return self.hand
@@ -130,6 +144,15 @@ class Player():
 
             i += 1
 
+    def show_gui_hand(self, display, image):
+        '''
+        displays cards in hand to pygame display
+        display will be the pygame display, and image will be uno.png object
+        '''
+        coords = get_card_positions(len(self.gui_hand))
+        for card, coord in self.gui_hand, coords:
+            card.display(coord, display, image)
+
     def valid_play(self, top_color:str, top_value:str) -> bool:
         """
         Function determines whether the player can play a card or not.
@@ -146,7 +169,36 @@ class Player():
                 return True
 
         return False
+    
+    def make_gui_cards(self):
+        cards = []
+        for card in self.hand:
+            cards.append(GUICard(get_texture(card.get_color(), card.get_value())))
+        return cards
 
-        
-        
+
+
+class GUICard:
+
+    def __init__(self, texture: tuple) -> None:
+        '''
+        texture will be a tuple of coordinates for the card texture on uno.png
+        the button coordinates will be updated with display() later by the
+        card placement function
+        '''
+        self.button = pg.Rect(0, 0, 400, 580)
+        self.texture = pg.Rect(texture[0], texture[1], 400, 580)
+
+    def mouse_hover(self, mouse):
+        return self.button.collidepoint(mouse)
+
+    def display(self, coords: tuple, display, image):
+        '''
+        takes image of uno.png and current pygame display, updates button pos
+        and displays texture
+
+        coords (x,y)
+        '''
+        self.button.update(coords[0], coords[1], 400, 580)
+        display.blit(image, coords, self.texture)
         
