@@ -1,5 +1,6 @@
 import pygame, sys
-from pygame import *
+from pathlib import Path
+from pygame.locals import *
 
 pygame.init()
 
@@ -11,7 +12,7 @@ DISPLAYSURF = pygame.display.set_mode((1920, 1080), 0, 32)
 pygame.display.set_caption('Animation')
 
 WHITE = (255, 255, 255)
-unoCards = pygame.image.load("C:\\Users\\Charlie\\Documents\\GitHub\\spring-python2-cardgame\\GUI\\uno.png")
+unoCards = pygame.image.load('uno.png')
 x = 10
 y = 10
 direction = 'right'
@@ -54,7 +55,7 @@ while True: # the main game loop
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-
+        [unocards]
         if button.collidepoint(mouse) and event.type == MOUSEBUTTONDOWN:
             showButton = False
             print("clicked")
