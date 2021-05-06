@@ -1,0 +1,7 @@
+to make the hand work in pygame, have a list of rects that will be the texture
+and button pairs. update the button when moving cards around and leave the
+texture alone since it is dependent on what card it is. then, have Derrek's 
+function place them and when a mouse hovers over one use
+Rect.collidepoint(mouse) to see which one is being pressed, and return its
+index in the list of rects so that the game logic knows which card is being
+selected. Only allow selection of card to be done on player turn
