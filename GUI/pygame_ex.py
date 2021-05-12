@@ -1,6 +1,7 @@
 import pygame, sys
 from pathlib import Path
 from pygame.locals import *
+from UnoClass import *
 
 pygame.init()
 
@@ -16,8 +17,9 @@ unoCards = pygame.image.load('uno.png')
 x = 10
 y = 10
 direction = 'right'
-texture = Rect(0, 0, 400, 580)
-button = Rect(0, 580, 400, 580)
+# texture = Rect(0, 0, 400, 580)
+# button = Rect(0, 580, 400, 580)
+card = GUICard(unoCards)
 showButton = True
 
 while True: # the main game loop
@@ -45,9 +47,9 @@ while True: # the main game loop
     
     # x,y first 2
 
-    DISPLAYSURF.blit(unoCards, (x, y), texture)
+    # DISPLAYSURF.blit(unoCards, (x, y), texture)
     if showButton:
-        button.update(x, y, 400, 580)
+        card.display((x,y), DISPLAYSURF)
     mouse = pygame.mouse.get_pos()
     
 
@@ -55,8 +57,7 @@ while True: # the main game loop
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-        [unocards]
-        if button.collidepoint(mouse) and event.type == MOUSEBUTTONDOWN:
+        if card.mouse_hover(mouse) and event.type == MOUSEBUTTONDOWN:
             showButton = False
             print("clicked")
     pygame.display.update()
