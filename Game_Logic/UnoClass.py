@@ -180,25 +180,28 @@ class Player():
 
 class GUICard:
 
-    def __init__(self, texture: tuple) -> None:
+    def __init__(self, texture: pg.Surface, coords=(0,0)) -> None:
         '''
-        texture will be a tuple of coordinates for the card texture on uno.png
+        coords will be a tuple of coordinates for the card texture on uno.png
         the button coordinates will be updated with display() later by the
         card placement function
         '''
         self.button = pg.Rect(0, 0, 400, 580)
-        self.texture = pg.Rect(texture[0], texture[1], 400, 580)
+        self.crop = pg.Rect(coords[0], coords[1], 400, 580)
+        self.texture = texture
 
     def mouse_hover(self, mouse):
+        '''
+        mouse is coordinates of current mouse position
+        '''
         return self.button.collidepoint(mouse)
 
-    def display(self, coords: tuple, display, image):
+    def display(self, coords: tuple, display):
         '''
-        takes image of uno.png and current pygame display, updates button pos
-        and displays texture
+        takes current pygame display, updates button pos and displays texture
 
         coords (x,y)
         '''
         self.button.update(coords[0], coords[1], 400, 580)
-        display.blit(image, coords, self.texture)
+        display.blit(self.texture, coords, self.crop)
         
