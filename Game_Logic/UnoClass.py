@@ -3,6 +3,9 @@
 import random
 import pygame as pg
 
+HEIGHT = 107
+WIDTH = 71
+
 def get_texture(color: str, value: int):
     '''
     takes in a color and value and returns a tuple of coordinates for the
@@ -186,8 +189,8 @@ class GUICard:
         the button coordinates will be updated with display() later by the
         card placement function
         '''
-        self.button = pg.Rect(0, 0, 400, 580)
-        self.crop = pg.Rect(coords[0], coords[1], 400, 580)
+        self.button = pg.Rect(0, 0, WIDTH, HEIGHT)
+        self.crop = pg.Rect(coords[0], coords[1], WIDTH, HEIGHT)
         self.texture = texture
 
     def mouse_hover(self, mouse):
@@ -202,6 +205,6 @@ class GUICard:
 
         coords (x,y)
         '''
-        self.button.update(coords[0], coords[1], 400, 580)
+        self.button.update(coords[0], coords[1], WIDTH, HEIGHT)
         display.blit(self.texture, coords, self.crop)
         
