@@ -5,3 +5,5 @@ function place them and when a mouse hovers over one use
 Rect.collidepoint(mouse) to see which one is being pressed, and return its
 index in the list of rects so that the game logic knows which card is being
 selected. Only allow selection of card to be done on player turn
+
+card dimensions: 71 x 107 
