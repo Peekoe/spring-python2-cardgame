@@ -3,11 +3,19 @@
 import random
 import pygame as pg
 
+COLORS = {"Red": 1, 'Yellow': 2, 'Green': 3, 'Blue': 4}
+VALUES = {'0': 1,'1': 2,'2': 3,'3': 4,'4': 5, '5': 6,'6': 7,'7': 8,'8': 9,'9': 10,'Draw Two': 11,'Skip': 12,'Reverse': 13}
+WIDTH = 71
+HEIGHT = 107
+
 def get_texture(color: str, value: int):
     '''
     takes in a color and value and returns a tuple of coordinates for the
     uno.png
     '''
+    coordinate = (WIDTH * VALUES[str(value)], HEIGHT * COLORS[color], WIDTH, HEIGHT)
+    print(coordinate)
+    return(coordinate)
     pass
 
 def get_card_positions(num_cards: int):
