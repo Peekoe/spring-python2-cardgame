@@ -2,11 +2,16 @@
 
 import random
 import pygame as pg
+from pygame.locals import Color
 
-COLORS = {"Red": 1, 'Yellow': 2, 'Green': 3, 'Blue': 4}
-VALUES = {'0': 1,'1': 2,'2': 3,'3': 4,'4': 5, '5': 6,'6': 7,'7': 8,'8': 9,'9': 10,'Draw Two': 11,'Skip': 12,'Reverse': 13}
-WIDTH = 71
 HEIGHT = 107
+WIDTH = 71
+
+COLORS = {'Red': 0,'Green': 2,'Blue': 3,'Yellow': 1}
+VALUES = {
+            '0': 0,'1': 1,'2': 2,'3': 3,'4': 4,'5': 5,'6': 6,'7': 7,'8': 8,
+            '9': 9,'Skip': 10,'Reverse': 11,'Draw Two': 12,'Wild': 13
+        }
 
 def get_texture(color: str, value: int):
     '''
@@ -194,8 +199,8 @@ class GUICard:
         the button coordinates will be updated with display() later by the
         card placement function
         '''
-        self.button = pg.Rect(0, 0, 400, 580)
-        self.crop = pg.Rect(coords[0], coords[1], 400, 580)
+        self.button = pg.Rect(0, 0, WIDTH, HEIGHT)
+        self.crop = pg.Rect(coords[0], coords[1], WIDTH, HEIGHT)
         self.texture = texture
 
     def mouse_hover(self, mouse):
@@ -210,6 +215,6 @@ class GUICard:
 
         coords (x,y)
         '''
-        self.button.update(coords[0], coords[1], 400, 580)
+        self.button.update(coords[0], coords[1], WIDTH, HEIGHT)
         display.blit(self.texture, coords, self.crop)
         
