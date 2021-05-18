@@ -21,7 +21,6 @@ def get_texture(color: str, value: int):
     coordinate = (WIDTH * VALUES[str(value)], HEIGHT * COLORS[color], WIDTH, HEIGHT)
     print(coordinate)
     return(coordinate)
-    pass
 
 def get_card_positions(num_cards: int):
     '''

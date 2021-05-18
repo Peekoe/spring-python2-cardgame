@@ -15,11 +15,9 @@ def get_texture(color: str, value: int):
     takes in a color and value and returns a tuple of coordinates for the
     uno.png
     '''
-    coordinate = (WIDTH * VALUES[str(value)], HEIGHT * COLORS[color], WIDTH, HEIGHT)
+    coordinate = (WIDTH * VALUES[str(value)], HEIGHT * COLORS[color])
     print(coordinate)
-    return(coordinate)
-    pass
-
+    return coordinate
 
 
 class Card():
@@ -127,7 +125,6 @@ class Player():
         """
         Adds cards to the Player's hand.
         """
-
         self.hand.extend(cards)
 
     def get_hand(self):
@@ -138,12 +135,6 @@ class Player():
         returns a list of tuples of the 
         coordinates for their hand to be displayed
         '''
-        for card in self.hand:
-            card_list = []
-            color = card.get_color()
-            value = card.get_value()
-            card_list.append(get_texture(color, value))
-            return card_list
         pass
 
     def show_hand(self):
@@ -167,7 +158,7 @@ class Player():
         displays cards in hand to pygame display
         display will be the pygame display, and image will be uno.png object
         '''
-        coords = get_card_positions(len(self.gui_hand))
+        coords = self.get_card_positions(len(self.gui_hand))
         for card, coord in self.gui_hand, coords:
             card.display(coord, display, image)
 
@@ -189,6 +180,9 @@ class Player():
         return False
     
     def make_gui_cards(self):
+        '''
+        fills player hand with GUICard objects to be displayed in pygame
+        '''
         cards = []
         for card in self.hand:
             cards.append(GUICard(get_texture(card.get_color(), card.get_value())))
@@ -204,8 +198,8 @@ class GUICard:
         the button coordinates will be updated with display() later by the
         card placement function
         '''
-        self.button = pg.Rect(0, 0, 400, 580)
-        self.crop = pg.Rect(coords[0], coords[1], 400, 580)
+        self.button = pg.Rect(0, 0, WIDTH, HEIGHT)
+        self.crop = pg.Rect(coords[0], coords[1], WIDTH, HEIGHT)
         self.texture = texture
 
     def mouse_hover(self, mouse):
@@ -220,6 +214,6 @@ class GUICard:
 
         coords (x,y)
         '''
-        self.button.update(coords[0], coords[1], 400, 580)
+        self.button.update(coords[0], coords[1], WIDTH, HEIGHT)
         display.blit(self.texture, coords, self.crop)
         

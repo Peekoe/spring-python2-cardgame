@@ -19,7 +19,7 @@ y = 10
 direction = 'right'
 # texture = Rect(0, 0, 400, 580)
 # button = Rect(0, 580, 400, 580)
-card = GUICard(unoCards)
+card = GUICard(unoCards, get_texture('Draw Four', 13))
 showButton = True
 
 while True: # the main game loop
