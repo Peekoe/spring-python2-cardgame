@@ -1,2 +1,4 @@
 Server_Client/api.py
 Server_Client/__pycache__/api.cpython-39.pyc
+GUI/__pycache__/UnoClass.cpython-39.pyc
+Game_Logic/__pycache__/UnoClass.cpython-39.pyc
