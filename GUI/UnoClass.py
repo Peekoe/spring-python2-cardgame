@@ -5,10 +5,10 @@ import pygame as pg
 
 COLORS = {"Red": 0, 'Yellow': 1, 'Green': 2, 'Blue': 3, 'Wild': 0, "Draw Four": 4}
 VALUES = {'0': 0,'1': 1,'2': 1,'3': 3,'4': 4, '5': 5,'6': 6,'7': 7,'8': 8,'9': 9,'Skip': 10,'Reverse': 11,'Draw Two': 12, '': 13, 'Draw Four': 13}
-WIDTH = 71
+WIDTH = 72
 HEIGHT = 107
 
-#'Draw Two': 10,'Skip': 11,'Reverse': 12, 'Wild': 13, 'Draw Four': 13
+#360W 973H
 
 def get_texture(color: str, value: int):
     '''
@@ -16,11 +16,23 @@ def get_texture(color: str, value: int):
     uno.png
     '''
     coordinate = (WIDTH * VALUES[str(value)], HEIGHT * COLORS[color], WIDTH, HEIGHT)
-    print(coordinate)
     return(coordinate)
     pass
 
+def get_card_positions(hand_length: int):
+        '''
+        returns a list of tuples of the 
+        coordinates for their hand to be displayed
+        '''
+        screen_x= 360
+        screen_y = 973
+        coords = []
+        
+        for card in range(hand_length):
+            coords.append((WIDTH * (card + 1) + screen_x, screen_y, WIDTH, HEIGHT))
 
+        return coords
+        pass
 
 class Card():
     #Class for each Uno Card
@@ -133,18 +145,6 @@ class Player():
     def get_hand(self):
         return self.hand
 
-    def get_card_positions(self):
-        '''
-        returns a list of tuples of the 
-        coordinates for their hand to be displayed
-        '''
-        for card in self.hand:
-            card_list = []
-            color = card.get_color()
-            value = card.get_value()
-            card_list.append(get_texture(color, value))
-            return card_list
-        pass
 
     def show_hand(self):
         """
